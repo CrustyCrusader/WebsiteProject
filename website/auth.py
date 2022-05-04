@@ -1,5 +1,5 @@
 from flask import Blueprint, redirect, session, url_for,render_template, request, flash
-from __init__ import db
+
 
 auth = Blueprint('auth',__name__)
 
@@ -17,8 +17,7 @@ def login():
             session["email"] = found_user.email
         else:
             usr = user(user,"")
-            db.session.add(usr)
-            db.session.commit()
+            
 
         flash("Login Succesful!")
         return redirect(url_for("user"))
@@ -51,7 +50,7 @@ def user():
             session["email"] = email
             found_user = user.query.filter_by(name=user).first()
             found_user.email=email
-            db.session.commit()
+      
             flash("Email saved")
         else:
             if "email" in session:
